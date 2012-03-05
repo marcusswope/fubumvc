@@ -189,6 +189,14 @@ namespace FubuMVC.Tests.Assets
         }
 
         [Test]
+        public void find_script_with_multiple_extensions()
+        {
+            theGraph.Extension("a1","a");
+            theGraph.Extension("a2","a");
+            ScriptNamesFor("a", "c", "b").ShouldHaveTheSameElementsAs("a", "b", "c", "a1","a2");
+        }
+
+        [Test]
         public void use_a_dependency_on_a_set()
         {
             theGraph.AddToSet("basic", "jquery");
