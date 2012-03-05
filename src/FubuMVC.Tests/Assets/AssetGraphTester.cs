@@ -25,7 +25,7 @@ namespace FubuMVC.Tests.Assets
         }
 
         [Test]
-        public void asset_files_key_equals()
+        public void asset_files_should_sort_alphabetical_by_default()
         {
             var key1 = new AssetGraph.AssetFilesKey(new string[]{"a", "b", "c"});
             var key2 = new AssetGraph.AssetFilesKey(new string[]{"a", "b", "c"});
