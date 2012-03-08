@@ -1,8 +1,9 @@
-using System;
 using FubuMVC.Core.Registration.Routes;
+using System.Diagnostics;
 
 namespace FubuMVC.Core.Resources.PathBased
 {
+    [DebuggerDisplay("{_path}")]
     public class ResourcePath : IMakeMyOwnUrl
     {
         public static readonly string UrlSuffix =
@@ -25,6 +26,5 @@ namespace FubuMVC.Core.Resources.PathBased
             var baseUrl = basePattern.Contains(UrlSuffix) ? basePattern.Replace(UrlSuffix, "") : basePattern;
             return (baseUrl + "/" + _path).Trim('/').Replace("//", "/");
         }
-
     }
 }

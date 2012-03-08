@@ -4,9 +4,11 @@ using FubuMVC.Core.Assets.Files;
 using FubuCore;
 using System.Linq;
 using FubuMVC.Core.Runtime;
+using System.Diagnostics;
 
 namespace FubuMVC.Core.Assets.Content
 {
+    [DebuggerDisplay("{debuggerDisplay()}")]
     public class ContentPlan : IContentSource
     {
         private readonly string _name;
@@ -120,7 +122,8 @@ namespace FubuMVC.Core.Assets.Content
 
         string IContentSource.GetContent(IContentPipeline pipeline)
         {
-            return Top().GetContent(pipeline);
+            var top = Top();
+            return top.GetContent(pipeline);
         }
 
         IEnumerable<AssetFile> IContentSource.Files
@@ -131,6 +134,11 @@ namespace FubuMVC.Core.Assets.Content
         IEnumerable<IContentSource> IContentSource.InnerSources
         {
             get { return Top().InnerSources; }
+        }
+
+        string debuggerDisplay()
+        {
+            return "{0} {1}".ToFormat(_name, _mimeType);
         }
     }
 }

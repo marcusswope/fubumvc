@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using FubuMVC.Core.Assets.Files;
 

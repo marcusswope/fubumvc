@@ -30,8 +30,9 @@ namespace FubuMVC.Core.Assets
         public TagList WriteAllTags()
         {
             var requests = _requirements.DequeueAssetsToRender();
+            var tagPlan = requests.SelectMany(TagsForPlan);
 
-            return requests.SelectMany(TagsForPlan).ToTagList();
+            return tagPlan.ToTagList();
         }
 
         public TagList WriteTags(MimeType mimeType)

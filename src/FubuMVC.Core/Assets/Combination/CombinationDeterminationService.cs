@@ -35,8 +35,6 @@ namespace FubuMVC.Core.Assets.Combination
             applyPoliciesToDiscoverPotentialCombinations(plan);
 
             TryAllExistingCombinations(plan);
-
-            
         }
 
         private void applyPoliciesToDiscoverPotentialCombinations(AssetTagPlan plan)

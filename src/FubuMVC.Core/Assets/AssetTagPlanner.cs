@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using FubuMVC.Core.Assets.Combination;
 using FubuMVC.Core.Assets.Files;
@@ -36,15 +35,6 @@ namespace FubuMVC.Core.Assets
             return plan;
         }
 
-        private static void validateMatchingMimetypes(MimeType mimeType, AssetTagPlan plan, IEnumerable<string> names)
-        {
-            if (plan.Subjects.Any(x => x.MimeType != mimeType))
-            {
-                var message = "Files {0} have mixed mimetype's".ToFormat(names.Join(", "));
-                throw new MixedMimetypeException(message);
-            }
-        }
-
         public AssetTagPlan BuildPlan(AssetPlanKey key)
         {
             return BuildPlan(key.MimeType, key.Names);
@@ -66,6 +56,13 @@ namespace FubuMVC.Core.Assets
             }
         }
 
-
+        private static void validateMatchingMimetypes(MimeType mimeType, AssetTagPlan plan, IEnumerable<string> names)
+        {
+            if (plan.Subjects.Any(x => x.MimeType != mimeType))
+            {
+                var message = "Files {0} have mixed mimetype's".ToFormat(names.Join(", "));
+                throw new MixedMimetypeException(message);
+            }
+        }
     }
 }

@@ -8,6 +8,9 @@ using FubuMVC.Core.Assets.Files;
 
 namespace FubuMVC.Core.Runtime
 {
+    using System.Diagnostics;
+
+    [DebuggerDisplay("{_mimeType}")]
     public class MimeType
     {
         public static readonly string HttpFormMimetype = "application/x-www-form-urlencoded";
@@ -109,6 +112,17 @@ namespace FubuMVC.Core.Runtime
         public IEnumerable<string> Extensions
         {
             get { return _extensions; }
+        }
+
+        public bool IsImage()
+        {
+            //we can probably do something smarter in here. -dru
+            if (Folder() != null)
+            {
+                return Folder() == AssetFolder.images;
+            }
+
+            return false;
         }
     }
 }
