@@ -16,6 +16,14 @@
         //why do we need the folder?
     }
 
+    public class NulloAssetUrlRegistry : IAssetUrlRegistry
+    {
+        public string UrlForAsset(AssetFolder? folder, string name)
+        {
+            return "";
+        }
+    }
+
     public class AssetUrlRegistry : IAssetUrlRegistry
     {
         public static readonly string AssetsUrlFolder = "_content";

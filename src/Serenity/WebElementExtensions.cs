@@ -6,6 +6,8 @@ using OpenQA.Selenium;
 
 namespace Serenity
 {
+    using FubuMVC.Core.Assets;
+
     public static class WebElementExtensions
     {
         public static bool IsCssLink(this IWebElement element)
@@ -22,7 +24,7 @@ namespace Serenity
         public static string AssetName(this IWebElement element)
         {
             var parts = (element.Href() ?? element.GetAttribute("src")).Split('/').ToList();
-            var index = parts.IndexOf(UrlRegistry.AssetsUrlFolder);
+            var index = parts.IndexOf(AssetUrlRegistry.AssetsUrlFolder);
 
             return parts.Skip(index).Join("/");
         }

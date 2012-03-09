@@ -19,6 +19,8 @@ using Model1 = FubuMVC.Tests.Registration.Model1;
 
 namespace FubuMVC.Tests.StructureMapIoC
 {
+    using Core.Assets;
+
     [TestFixture]
     public class when_applying_diagnostics_from_FubuApplication
     {
@@ -40,6 +42,7 @@ namespace FubuMVC.Tests.StructureMapIoC
                 x.For<IStreamingData>().Use(MockRepository.GenerateMock<IStreamingData>());
 
                 x.For<ICurrentChain>().Use(new CurrentChain(null, null));
+                x.For<IAssetUrlRegistry>().Use<NulloAssetUrlRegistry>();
             });
 
             theRoutes = FubuApplication.For(() => new FubuRegistry(x =>
