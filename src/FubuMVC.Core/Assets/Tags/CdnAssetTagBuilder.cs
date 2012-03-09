@@ -1,27 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using FubuCore.Util;
-using FubuMVC.Core.Assets.Combination;
-using FubuMVC.Core.Runtime;
-using FubuMVC.Core.Urls;
-using HtmlTags;
-
-namespace FubuMVC.Core.Assets.Tags
+﻿namespace FubuMVC.Core.Assets.Tags
 {
-    public class AssetTagBuilder : IAssetTagBuilder
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Combination;
+    using HtmlTags;
+    using Runtime;
+
+    public class CdnAssetTagBuilder : IAssetTagBuilder
     {
-        private readonly Cache<MimeType, Func<IAssetTagSubject, HtmlTag>>
-            _builders = new Cache<MimeType, Func<IAssetTagSubject, HtmlTag>>();
+        private readonly FubuCore.Util.Cache<MimeType, Func<IAssetTagSubject, HtmlTag>>
+            _builders = new FubuCore.Util.Cache<MimeType, Func<IAssetTagSubject, HtmlTag>>();
 
-        private readonly IMissingAssetHandler _missingHandler;
-        private readonly IUrlRegistry _urls;
+        readonly IMissingAssetHandler _missingHandler;
 
-        public AssetTagBuilder(IMissingAssetHandler missingHandler, IUrlRegistry urls)
+        public CdnAssetTagBuilder(IMissingAssetHandler missingHandler)
         {
             _missingHandler = missingHandler;
-            _urls = urls;
-
             _builders[MimeType.Javascript] = (subject) =>
             {
                 return new HtmlTag("script")
@@ -41,28 +36,26 @@ namespace FubuMVC.Core.Assets.Tags
 
         public IEnumerable<HtmlTag> Build(AssetTagPlan plan)
         {
-            // This will happen when a user tries to request an asset set
-            // with no assets -- think optional sets
-            if (!plan.Subjects.Any())
+            if(!plan.Subjects.Any())
             {
                 return new HtmlTag[0];
             }
 
             var missingSubjects = plan.RemoveMissingAssets();
             var tagBuilder = _builders[plan.MimeType];
-            Func<IAssetTagSubject, HtmlTag> builder = subject =>
+            Func<IAssetTagSubject, HtmlTag> converter = subject =>
             {
                 return tagBuilder(subject);
             };
 
             var missingTags = _missingHandler.BuildTagsAndRecord(missingSubjects);
-            var assetTags = plan.Subjects.Select(builder);
-            return missingTags.Union(assetTags); 
+            var tags = plan.Subjects.Select(converter);
+            return missingTags.Union(tags);
         }
 
         string assetUrl(IAssetTagSubject subject)
         {
-            return _urls.UrlForAsset(subject.Folder, subject.Name);
+            return "/cdn/" + subject.Folder + "/" + subject.Name;
         }
     }
 }

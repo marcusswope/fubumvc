@@ -9,6 +9,10 @@ using FubuMVC.WebForms;
 
 namespace FubuMVC.HelloWorld
 {
+    using Core.Assets;
+    using Core.Assets.Files;
+    using Core.Assets.Tags;
+
     public class HelloWorldFubuRegistry : FubuRegistry
     {
         public HelloWorldFubuRegistry()
@@ -43,7 +47,13 @@ namespace FubuMVC.HelloWorld
             this.RegisterPartials(x => x.For<Product>().Use<ProductPartial>());
             this.RegisterPartials(x => x.For<ProductPart>().Use<PartPartial>());
 
-            Services(s => s.ReplaceService<IUrlTemplatePattern, JQueryUrlTemplate>());
+            Services(s =>
+            {
+                s.ReplaceService<IUrlTemplatePattern, JQueryUrlTemplate>();
+                s.ReplaceService<IAssetPipeline, CdnAssetPipeline>();
+                //s.ReplaceService<IAssetTagPlanner, CdnAssetTagPlanner>();
+                s.ReplaceService<IAssetTagBuilder, CdnAssetTagBuilder>();
+            });
         }
     }
 }

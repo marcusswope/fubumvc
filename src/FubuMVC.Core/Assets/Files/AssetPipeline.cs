@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using FubuCore;
@@ -31,7 +30,10 @@ namespace FubuMVC.Core.Assets.Files
 
         public void AddFile(AssetPath path, AssetFile file)
         {
-            if (path.Folder != null) file.Folder = path.Folder.Value;
+            if (path.Folder != null) //shouldn't this be a HasValue check?
+            {
+                file.Folder = path.Folder.Value;
+            }
             _packages[path.Package].AddFile(path, file);
         }
 
@@ -56,8 +58,10 @@ namespace FubuMVC.Core.Assets.Files
                 return _packages[path.Package].FindByPath(path).FirstOrDefault();
             }
 
-            var files = _allPackages.SelectMany(x => x.FindByPath(path));
+            var files = _allPackages.SelectMany(package => package.FindByPath(path));
 
+
+            //this is looking for overrides first
             return files.FirstOrDefault(x => x.Override) ?? files.FirstOrDefault();
         }
 

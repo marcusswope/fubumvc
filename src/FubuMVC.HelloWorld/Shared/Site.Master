@@ -5,6 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
     <title>Hello World</title>
+    <% this.Asset("jquery-1.4.2.js","bob.js"); %>
+    <% = this.WriteAssetTags() %>
 </head>
 <body>
     <div>

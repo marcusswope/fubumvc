@@ -14,15 +14,16 @@ namespace FubuMVC.Core.Urls
 {
     public class UrlRegistry : ChainInterrogator<string>, IUrlRegistry
     {
-        public static readonly string AssetsUrlFolder = "_content";
 
         private readonly ICurrentHttpRequest _httpRequest;
         private readonly Func<string, string> _templateFunc;
+        IAssetUrlRegistry _assetUrls;
 
-        public UrlRegistry(IChainResolver resolver, IUrlTemplatePattern templatePattern, ICurrentHttpRequest httpRequest)
+        public UrlRegistry(IChainResolver resolver, IUrlTemplatePattern templatePattern, ICurrentHttpRequest httpRequest, IAssetUrlRegistry assetUrls)
             : base(resolver)
         {
             _httpRequest = httpRequest;
+            _assetUrls = assetUrls;
             _templateFunc = (s) => { return s.Replace("{", templatePattern.Start).Replace("}", templatePattern.End); };
         }
 
@@ -63,8 +64,7 @@ namespace FubuMVC.Core.Urls
 
         public string UrlForAsset(AssetFolder? folder, string name)
         {
-            var relativeUrl = DetermineRelativeAssetUrl(folder, name);
-            return _httpRequest.ToFullUrl(relativeUrl);
+            return _assetUrls.UrlForAsset(folder, name);
         }
 
         public string UrlFor(Type handlerType, MethodInfo method, string categoryOrHttpMethod = null)
@@ -135,19 +135,5 @@ namespace FubuMVC.Core.Urls
             resolver.RootAt(baseUrl);
         }
 
-        // TODO -- move the unit tests
-        public static string DetermineRelativeAssetUrl(IAssetTagSubject subject)
-        {
-            var folder = subject.Folder;
-            var name = subject.Name;
-
-            return DetermineRelativeAssetUrl(folder, name);
-        }
-
-        // TODO -- move the unit tests
-        public static string DetermineRelativeAssetUrl(AssetFolder? folder, string name)
-        {
-            return "{0}/{1}/{2}".ToFormat(AssetsUrlFolder, folder, name);
-        }
     }
 }
