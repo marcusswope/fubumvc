@@ -8,6 +8,9 @@ using FubuCore;
 
 namespace FubuMVC.Core.Assets.Files
 {
+    using System.Diagnostics;
+
+    [DebuggerDisplay("{debuggerDisplay()}")]
     public class AssetPath : ResourcePath
     {
         public AssetPath(IEnumerable<string> pathParts) : this(pathParts.Join("/"))
@@ -31,12 +34,12 @@ namespace FubuMVC.Core.Assets.Files
             readPath(path);
         }
 
-        public AssetPath(string package, string name, AssetFolder? folder) : base(name)
+        public AssetPath(string package, string assetName, AssetFolder? folder) : base(assetName)
         {
             if (package == null) throw new ArgumentNullException("package");
-            if (name == null) throw new ArgumentNullException("name");
+            if (assetName == null) throw new ArgumentNullException("assetName");
 
-            Name = name;
+            Name = assetName;
             Package = package;
             Folder = folder;
         }
@@ -86,10 +89,10 @@ namespace FubuMVC.Core.Assets.Files
         public bool IsImage()
         {
             var mimeType = MimeType.MimeTypeByFileName(Name);
-
-            if (mimeType != null && mimeType.Folder() != null)
+            
+            if(mimeType != null)
             {
-                return mimeType.Folder() == AssetFolder.images;
+                return mimeType.IsImage();
             }
 
             return Folder.Equals(AssetFolder.images);
@@ -119,6 +122,11 @@ namespace FubuMVC.Core.Assets.Files
                 result = (result*397) ^ (Folder.HasValue ? Folder.Value.GetHashCode() : 0);
                 return result;
             }
+        }
+
+        string debuggerDisplay()
+        {
+            return "{0}:{1}".ToFormat(Package, Name);
         }
     }
 }

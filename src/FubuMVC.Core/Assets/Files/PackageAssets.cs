@@ -6,20 +6,26 @@ using FubuCore.Util;
 
 namespace FubuMVC.Core.Assets.Files
 {
+    using System.Diagnostics;
+
+    /// <summary>
+    /// All of the assets in a given package
+    /// </summary>
+    [DebuggerDisplay("{debuggerDisplay()}")]
     public class PackageAssets
     {
-        private readonly Cache<AssetFolder, List<AssetFile>> _files = new Cache<AssetFolder, List<AssetFile>>(key => new List<AssetFile>());
+        readonly Cache<AssetFolder, List<AssetFile>> _files = new Cache<AssetFolder, List<AssetFile>>(key => new List<AssetFile>());
 
         public PackageAssets(string packageName)
         {
             PackageName = packageName;
         }
 
-        public string PackageName { get; private set;}
+        public string PackageName { get; private set; }
 
         public void AddFile(AssetPath path, AssetFile file)
         {
-            if (!path.Folder.HasValue)
+            if(!path.Folder.HasValue)
             {
                 throw new ArgumentException("AssetPath must have an AssetType to be used here");
             }
@@ -35,26 +41,26 @@ namespace FubuMVC.Core.Assets.Files
 
         public IEnumerable<AssetFile> FindByPath(AssetPath path)
         {
-            if (path.Folder.HasValue)
+            if(path.Folder.HasValue)
             {
                 return matchingType(path.Folder.Value, path.Name);
             }
 
             var scripts = matchingType(AssetFolder.scripts, path.Name);
-            if (scripts.Any()) return scripts;
+            if(scripts.Any()) return scripts;
 
             var styles = matchingType(AssetFolder.styles, path.Name);
-            if (styles.Any()) return styles;
+            if(styles.Any()) return styles;
 
             var images = matchingType(AssetFolder.images, path.Name);
-            if (images.Any()) return images;
+            if(images.Any()) return images;
 
             return new AssetFile[0];
         }
 
-        private IEnumerable<AssetFile> matchingType(AssetFolder folder, string name)
+        IEnumerable<AssetFile> matchingType(AssetFolder folder, string name)
         {
-            return _files[folder].Where(x => x.Name.EqualsIgnoreCase(name));           
+            return _files[folder].Where(x => x.Name.EqualsIgnoreCase(name));
         }
 
         public IEnumerable<AssetFile> FilesForAssetType(AssetFolder folder)
@@ -70,6 +76,11 @@ namespace FubuMVC.Core.Assets.Files
         public IEnumerable<AssetFile> FindByFilePath(string path)
         {
             return AllFiles().Where(x => x.MatchesFullPath(path));
+        }
+
+        string debuggerDisplay()
+        {
+            return "{0}: {1} files".ToFormat(PackageName, AllFiles().Count());
         }
     }
 }
