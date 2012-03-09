@@ -59,9 +59,15 @@
 
     public class CdnAssetUrlRegistry : IAssetUrlRegistry
     {
+        string _root;
+
+        public CdnAssetUrlRegistry(string root)
+        {
+            _root = root;
+        }
         public string UrlForAsset(AssetFolder? folder, string name)
         {
-            return "";
+            return "{0}/{1}/{2}".ToFormat(_root, folder, name);
         }
     }
 }

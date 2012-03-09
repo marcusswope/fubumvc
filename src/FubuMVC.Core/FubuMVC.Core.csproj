@@ -92,6 +92,7 @@
     <Compile Include="Assets\Caching\IAssetFileChangeListener.cs" />
     <Compile Include="Assets\Caching\IAssetFileWatcher.cs" />
     <Compile Include="Assets\CdnAssetTagPlanner.cs" />
+    <Compile Include="Assets\CdnExtension.cs" />
     <Compile Include="Assets\Content\ITransformerPolicyLibrary.cs" />
     <Compile Include="Assets\Content\IContentPlanCache.cs" />
     <Compile Include="Assets\Diagnostics\AssetLog.cs" />

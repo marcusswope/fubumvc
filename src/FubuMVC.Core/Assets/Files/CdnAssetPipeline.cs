@@ -4,7 +4,6 @@
 
     public class CdnAssetPipeline : IAssetPipeline
     {
-        string _cdnRoot = "/Content";
         public AssetFile Find(string path)
         {
             var file = new AssetFile(path);

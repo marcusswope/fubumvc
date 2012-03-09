@@ -10,8 +10,6 @@ using FubuMVC.WebForms;
 namespace FubuMVC.HelloWorld
 {
     using Core.Assets;
-    using Core.Assets.Files;
-    using Core.Assets.Tags;
 
     public class HelloWorldFubuRegistry : FubuRegistry
     {
@@ -50,9 +48,12 @@ namespace FubuMVC.HelloWorld
             Services(s =>
             {
                 s.ReplaceService<IUrlTemplatePattern, JQueryUrlTemplate>();
-                s.ReplaceService<IAssetPipeline, CdnAssetPipeline>();
-                //s.ReplaceService<IAssetTagPlanner, CdnAssetTagPlanner>();
-                s.ReplaceService<IAssetTagBuilder, CdnAssetTagBuilder>();
+            });
+
+            
+            Import<CdnExtension>(cdn=>
+            {
+                cdn.SetRoot("cdn");
             });
         }
     }
