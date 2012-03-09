@@ -39,6 +39,12 @@ namespace FubuMVC.Core.Assets.Tags
             };
         }
 
+
+        /// <summary>
+        /// Takes an AssetTagPlan and turns it into the right HtmlTags
+        /// </summary>
+        /// <param name="plan"></param>
+        /// <returns></returns>
         public IEnumerable<HtmlTag> Build(AssetTagPlan plan)
         {
             // This will happen when a user tries to request an asset set
@@ -62,6 +68,8 @@ namespace FubuMVC.Core.Assets.Tags
 
         string assetUrl(IAssetTagSubject subject)
         {
+            //the asset tag subject is where I could maybe use a CDN marker
+            //instead of a different AssetUrlBuilder
             return _urls.UrlForAsset(subject.Folder, subject.Name);
         }
     }
