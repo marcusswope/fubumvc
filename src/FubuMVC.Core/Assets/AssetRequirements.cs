@@ -5,6 +5,9 @@ using FubuMVC.Core.Runtime;
 
 namespace FubuMVC.Core.Assets
 {
+    using System.Diagnostics;
+    using FubuCore;
+
     public interface IAssetRequirements
     {
         IEnumerable<string> AllRequestedAssets { get; }
@@ -15,6 +18,7 @@ namespace FubuMVC.Core.Assets
         IEnumerable<AssetPlanKey> DequeueAssetsToRender();
     }
 
+    [DebuggerDisplay("{debuggerDisplay()}")]
     public class AssetRequirements : IAssetRequirements
     {
         private readonly IAssetDependencyFinder _finder;
@@ -93,6 +97,11 @@ namespace FubuMVC.Core.Assets
             _rendered.Fill(toRender);
 
             return toRender;
+        }
+
+        string debuggerDisplay()
+        {
+            return "Requirements: {0} (Rendered: {1})".ToFormat(_requirements.Count, _rendered.Count);
         }
     }
 }

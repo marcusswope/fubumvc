@@ -5,6 +5,10 @@ using FubuMVC.Core.Runtime;
 
 namespace FubuMVC.Core.Assets.Combination
 {
+    using System.Diagnostics;
+    using FubuCore;
+
+    [DebuggerDisplay("{debuggerDisplay()}")]
     public class AssetTagPlan
     {
         private readonly MimeType _mimeType;
@@ -98,6 +102,11 @@ namespace FubuMVC.Core.Assets.Combination
             plan.AddSubjects(subjects);
 
             return plan;
+        }
+
+        string debuggerDisplay()
+        {
+            return "{0} {1}".ToFormat(MimeType, Subjects.Count);
         }
     }
 }
