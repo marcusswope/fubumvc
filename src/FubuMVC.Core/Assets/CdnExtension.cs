@@ -1,7 +1,6 @@
 namespace FubuMVC.Core.Assets
 {
     using Files;
-    using Tags;
 
     public class CdnExtension : IFubuRegistryExtension
     {
@@ -17,12 +16,7 @@ namespace FubuMVC.Core.Assets
             registry.Services(s=>
             {
                 s.ReplaceService<IAssetPipeline, CdnAssetPipeline>();
-                s.ReplaceService<IAssetUrlBuilder>(new CdnAssetUrlBuilder(_root));
-
-                //i have coded these back out
-                //s.ReplaceService<IAssetTagPlanner, CdnAssetTagPlanner>();
-                //s.ReplaceService<IAssetTagBuilder, CdnAssetTagBuilder>();
-                
+                s.ReplaceService<IAssetUrlBuilder>(new CdnAssetUrlBuilder(_root)); //new concept
             });
         }
     }
