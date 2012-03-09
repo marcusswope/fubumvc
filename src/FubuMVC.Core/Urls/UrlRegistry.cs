@@ -17,9 +17,9 @@ namespace FubuMVC.Core.Urls
 
         private readonly ICurrentHttpRequest _httpRequest;
         private readonly Func<string, string> _templateFunc;
-        IAssetUrlRegistry _assetUrls;
+        IAssetUrlBuilder _assetUrls;
 
-        public UrlRegistry(IChainResolver resolver, IUrlTemplatePattern templatePattern, ICurrentHttpRequest httpRequest, IAssetUrlRegistry assetUrls)
+        public UrlRegistry(IChainResolver resolver, IUrlTemplatePattern templatePattern, ICurrentHttpRequest httpRequest, IAssetUrlBuilder assetUrls)
             : base(resolver)
         {
             _httpRequest = httpRequest;

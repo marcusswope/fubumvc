@@ -53,7 +53,7 @@ namespace FubuMVC.HelloWorld
             
             Import<CdnExtension>(cdn=>
             {
-                cdn.SetRoot("cdn");
+                cdn.SetRoot("hello");
             });
         }
     }

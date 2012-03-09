@@ -17,9 +17,11 @@ namespace FubuMVC.Core.Assets
             registry.Services(s=>
             {
                 s.ReplaceService<IAssetPipeline, CdnAssetPipeline>();
+                s.ReplaceService<IAssetUrlBuilder>(new CdnAssetUrlBuilder(_root));
+
+                //i have coded these back out
                 //s.ReplaceService<IAssetTagPlanner, CdnAssetTagPlanner>();
-                s.ReplaceService<IAssetUrlRegistry>(new CdnAssetUrlRegistry(_root));
-                s.ReplaceService<IAssetTagBuilder, CdnAssetTagBuilder>();
+                //s.ReplaceService<IAssetTagBuilder, CdnAssetTagBuilder>();
                 
             });
         }

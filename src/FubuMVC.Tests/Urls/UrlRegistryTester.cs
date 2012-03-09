@@ -18,7 +18,7 @@ namespace FubuMVC.Tests.Urls
                 Folder = AssetFolder.scripts
             };
 
-            AssetUrlRegistry.DetermineRelativeAssetUrl(file)
+            AssetUrlBuilder.DetermineRelativeAssetUrl(file)
                 .ShouldEqual("_content/scripts/jquery.forms.js");
         }
 
@@ -30,7 +30,7 @@ namespace FubuMVC.Tests.Urls
                 Folder = AssetFolder.scripts
             };
 
-            AssetUrlRegistry.DetermineRelativeAssetUrl(file)
+            AssetUrlBuilder.DetermineRelativeAssetUrl(file)
                 .ShouldEqual("_content/scripts/shared/jquery.forms.js");
         }
 
@@ -40,7 +40,7 @@ namespace FubuMVC.Tests.Urls
             var currentHttpRequest = new StubCurrentHttpRequest{TheApplicationRoot = "http://server"};
             var registry = new UrlRegistry(null, null, 
                 currentHttpRequest,
-                new AssetUrlRegistry(currentHttpRequest));
+                new AssetUrlBuilder(currentHttpRequest));
             registry.UrlForAsset(AssetFolder.images, "icon.png")
                 .ShouldEqual("http://server/_content/images/icon.png");
         }

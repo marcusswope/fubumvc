@@ -102,7 +102,7 @@
     <Compile Include="Assets\Files\CdnAssetPipeline.cs" />
     <Compile Include="Assets\Http\AssetEtagInvocationFilter.cs" />
     <Compile Include="Assets\Http\AssetWriter.cs" />
-    <Compile Include="Assets\IAssetUrlRegistry.cs" />
+    <Compile Include="Assets\IAssetUrlBuilder.cs" />
     <Compile Include="Assets\RecordingAssetRegistration.cs" />
     <Compile Include="Assets\Tags\CdnAssetTagBuilder.cs" />
     <Compile Include="Behaviors\AsyncContinueWithBehavior.cs" />

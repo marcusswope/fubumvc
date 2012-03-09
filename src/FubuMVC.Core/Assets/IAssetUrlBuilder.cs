@@ -4,7 +4,7 @@
     using Files;
     using FubuCore;
 
-    public interface IAssetUrlRegistry
+    public interface IAssetUrlBuilder
     {
         /// <summary>
         /// Resolve the url for a named asset
@@ -16,7 +16,7 @@
         //why do we need the folder?
     }
 
-    public class NulloAssetUrlRegistry : IAssetUrlRegistry
+    public class NulloAssetUrlBuilder : IAssetUrlBuilder
     {
         public string UrlForAsset(AssetFolder? folder, string name)
         {
@@ -24,13 +24,13 @@
         }
     }
 
-    public class AssetUrlRegistry : IAssetUrlRegistry
+    public class AssetUrlBuilder : IAssetUrlBuilder
     {
         public static readonly string AssetsUrlFolder = "_content";
 
         private readonly ICurrentHttpRequest _httpRequest;
 
-        public AssetUrlRegistry(ICurrentHttpRequest httpRequest)
+        public AssetUrlBuilder(ICurrentHttpRequest httpRequest)
         {
             _httpRequest = httpRequest;
         }
@@ -57,11 +57,11 @@
         }
     }
 
-    public class CdnAssetUrlRegistry : IAssetUrlRegistry
+    public class CdnAssetUrlBuilder : IAssetUrlBuilder
     {
         string _root;
 
-        public CdnAssetUrlRegistry(string root)
+        public CdnAssetUrlBuilder(string root)
         {
             _root = root;
         }
