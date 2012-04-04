@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using FubuMVC.Core.Behaviors;
 using FubuMVC.Core.Runtime;
@@ -37,7 +38,6 @@ namespace FubuMVC.Tests.Behaviors
         }
 
         [Test]
-        [Platform(Exclude = "Mono", Reason = "Incomplete Mono implementation")]
         public void should_call_inner_behavior()
         {
             MockFor<IActionBehavior>().AssertWasCalled(x => x.Invoke());
@@ -92,18 +92,21 @@ namespace FubuMVC.Tests.Behaviors
             {
                 var task = Task.Factory.StartNew(() =>
                 {
+					Thread.Sleep(3000);
                     throw new Exception("Failed!");
                 });
 
                 MockFor<IFubuRequest>().Expect(x => x.Get<Task>()).Return(task);
 
-                typeof (AggregateException).ShouldBeThrownBy(task.Wait);
+                typeof (AggregateException).ShouldBeThrownBy(() => task.Wait(3000));
                 ClassUnderTest.Invoke();
             });
-            testTask.RunSynchronously();
+            testTask.Start();
+			testTask.Wait(3000);
         }
 
         [Test]
+        //[Platform(Exclude = "Mono", Reason = "Incomplete Mono implementation")]
         public void should_not_call_inner_behavior()
         {
             MockFor<IActionBehavior>().AssertWasNotCalled(x => x.Invoke());

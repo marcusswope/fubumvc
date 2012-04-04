@@ -28,17 +28,13 @@ namespace FubuMVC.Core.Behaviors
             var task = Task.Factory.StartNew(() => InsideBehavior.Invoke(), TaskCreationOptions.AttachedToParent);
             task.ContinueWith(x =>
             {
-                try
-                {
-                    //this will allow a catching an exception rather than inspecting task data
-                    x.Wait();
-                }
-                catch (AggregateException e)
-                {
-                    var aggregateException = e.Flatten();
-                    aggregateException.InnerExceptions.Each(TryHandle);
-                }
-            }, TaskContinuationOptions.OnlyOnFaulted | TaskContinuationOptions.AttachedToParent);
+				//This works on Mono, ideally we would use OnlyOnFaulted option
+            	if(x.IsFaulted || x.Exception != null)
+				{
+            		var aggregateException = x.Exception.Flatten();
+                	aggregateException.InnerExceptions.Each(TryHandle);
+				}
+			}, TaskContinuationOptions.AttachedToParent);
         }
 
         public void InvokePartial()
