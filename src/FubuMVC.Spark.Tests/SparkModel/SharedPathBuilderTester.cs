@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using FubuCore;
 using FubuMVC.Core.View.Model;
 using FubuTestingSupport;
@@ -54,7 +55,7 @@ namespace FubuMVC.Spark.Tests.SparkModel
                 .ShouldHaveTheSameElementsAs(expected);
         }
 
-        [Test, Ignore("broken by nunit 2.6 upgrade")]
+        [Test]
         public void path_one_level_with_includeAncestor_bool_flag_returns_correct_paths()
         {
             var path = FileSystem.Combine(_rootPath, "path1");
@@ -64,7 +65,8 @@ namespace FubuMVC.Spark.Tests.SparkModel
             _folderNames.Each(s => expected.Add(FileSystem.Combine(_rootPath, s)));
 
             ClassUnderTest.BuildBy(path, _rootPath, true)
-                .ShouldHaveTheSameElementsAs(expected);
+                .Select(x => x.TrimEnd(Path.DirectorySeparatorChar))
+                .ShouldHaveTheSameElementsAs(expected.Select(x => x.TrimEnd(Path.DirectorySeparatorChar)));
         }
 
 
@@ -84,7 +86,7 @@ namespace FubuMVC.Spark.Tests.SparkModel
 
 
 
-        [Test, Ignore("broken by nunit 2.6 upgrade")]
+        [Test]
         public void path_two_level_with_includeAncestor_bool_flag_returns_correct_paths()
         {
             var p1 = FileSystem.Combine(_rootPath, "path1");
@@ -99,7 +101,8 @@ namespace FubuMVC.Spark.Tests.SparkModel
             });
 
             ClassUnderTest.BuildBy(p2, _rootPath, true)
-                .ShouldHaveTheSameElementsAs(expected);
+                .Select(x => x.TrimEnd(Path.DirectorySeparatorChar))
+                .ShouldHaveTheSameElementsAs(expected.Select(x => x.TrimEnd(Path.DirectorySeparatorChar)));
         }
 
         [Test]
@@ -121,7 +124,7 @@ namespace FubuMVC.Spark.Tests.SparkModel
                 .ShouldHaveTheSameElementsAs(expected);
         }
 
-        [Test,Ignore("broken by nunit 2.6 upgrade")]
+        [Test]
         public void path_n_level_with_includeAncestor_bool_flag_returns_correct_paths()
         {
             var tree = _rootPath;
@@ -141,7 +144,8 @@ namespace FubuMVC.Spark.Tests.SparkModel
             });
 
             ClassUnderTest.BuildBy(tree, _rootPath, true)
-                .ShouldHaveTheSameElementsAs(expected);
+                .Select(x => x.TrimEnd(Path.DirectorySeparatorChar))
+                .ShouldHaveTheSameElementsAs(expected.Select(x => x.TrimEnd(Path.DirectorySeparatorChar)));
         }
 
     }

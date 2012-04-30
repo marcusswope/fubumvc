@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using FubuMVC.Core.View.Model;
 using FubuTestingSupport;
 using NUnit.Framework;
@@ -52,7 +53,7 @@ namespace FubuMVC.Razor.Tests.RazorModel
                 .ShouldHaveTheSameElementsAs(expected);
         }
 
-       [Test, Ignore("broken by nunit 2.6 upgrade")]
+       [Test]
         public void path_one_level_with_includeAncestor_bool_flag_returns_correct_paths()
         {
             var path = FubuCore.FileSystem.Combine(_rootPath, "path1");
@@ -62,7 +63,8 @@ namespace FubuMVC.Razor.Tests.RazorModel
             _folderNames.Each(s => expected.Add(FubuCore.FileSystem.Combine(_rootPath, s)));
 
             ClassUnderTest.BuildBy(path, _rootPath, true)
-                .ShouldHaveTheSameElementsAs(expected);
+                .Select(x => x.TrimEnd(Path.DirectorySeparatorChar))
+                .ShouldHaveTheSameElementsAs(expected.Select(x => x.TrimEnd(Path.DirectorySeparatorChar)));
         }
 
 
@@ -82,7 +84,7 @@ namespace FubuMVC.Razor.Tests.RazorModel
 
 
 
-       [Test, Ignore("broken by nunit 2.6 upgrade")]
+       [Test]
         public void path_two_level_with_includeAncestor_bool_flag_returns_correct_paths()
         {
             var p1 = FubuCore.FileSystem.Combine(_rootPath, "path1");
@@ -97,7 +99,8 @@ namespace FubuMVC.Razor.Tests.RazorModel
             });
 
             ClassUnderTest.BuildBy(p2, _rootPath, true)
-                .ShouldHaveTheSameElementsAs(expected);
+                .Select(x => x.TrimEnd(Path.DirectorySeparatorChar))
+                .ShouldHaveTheSameElementsAs(expected.Select(x => x.TrimEnd(Path.DirectorySeparatorChar)));
         }
 
         [Test]
@@ -116,10 +119,11 @@ namespace FubuMVC.Razor.Tests.RazorModel
             paths.Each(p => _folderNames.Each(s => expected.Add(FubuCore.FileSystem.Combine(p, s))));
 
             ClassUnderTest.BuildBy(tree, _rootPath, false)
-                .ShouldHaveTheSameElementsAs(expected);
+                .Select(x => x.TrimEnd(Path.DirectorySeparatorChar))
+                .ShouldHaveTheSameElementsAs(expected.Select(x => x.TrimEnd(Path.DirectorySeparatorChar)));
         }
 
-       [Test, Ignore("broken by nunit 2.6 upgrade")]
+       [Test]
         public void path_n_level_with_includeAncestor_bool_flag_returns_correct_paths()
         {
             var tree = _rootPath;
@@ -139,7 +143,8 @@ namespace FubuMVC.Razor.Tests.RazorModel
             });
 
             ClassUnderTest.BuildBy(tree, _rootPath, true)
-                .ShouldHaveTheSameElementsAs(expected);
+                .Select(x => x.TrimEnd(Path.DirectorySeparatorChar))
+                .ShouldHaveTheSameElementsAs(expected.Select(x => x.TrimEnd(Path.DirectorySeparatorChar)));
         }
 
     }

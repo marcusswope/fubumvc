@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using FubuMVC.Core.View.Model;
 using FubuMVC.Core.View.Model.Sharing;
@@ -154,7 +155,7 @@ namespace FubuMVC.Razor.Tests.RazorModel
             ClassUnderTest.ReachablesOf(_templates[2]).ShouldHaveTheSameElementsAs(expected);
         }
 
-        [Test, Ignore("broken by nunit 2.6 upgrade")]
+        [Test]
         public void locals_and_sharings_are_combined_5()
         {
             var expected = new List<string>
@@ -167,7 +168,8 @@ namespace FubuMVC.Razor.Tests.RazorModel
                 FubuCore.FileSystem.Combine(_root, Shared)                               
             };
 
-            ClassUnderTest.ReachablesOf(_templates[0]).ShouldHaveTheSameElementsAs(expected);
+            ClassUnderTest.ReachablesOf(_templates[0]).Select(x => x.TrimEnd(Path.DirectorySeparatorChar))
+                .ShouldHaveTheSameElementsAs(expected.Select(x => x.TrimEnd(Path.DirectorySeparatorChar)));
         }
 
         // TODO: More UT
