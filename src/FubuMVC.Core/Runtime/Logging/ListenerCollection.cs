@@ -5,6 +5,8 @@ using System.Linq;
 
 namespace FubuMVC.Core.Runtime.Logging
 {
+   
+
     public class ListenerCollection : IEnumerable<ILogListener>
     {
         private readonly IEnumerable<ILogListener> _listeners;
@@ -22,7 +24,19 @@ namespace FubuMVC.Core.Runtime.Logging
                 return source =>
                 {
                     var msg = source();
-                    listeners.Each(x => proceed(x, msg));
+                    listeners.Each(x =>
+                    {
+                        try
+                        {
+                            proceed(x, msg);
+                        }
+                        catch (Exception e)
+                        {
+                            // Yeah, that's really what I want to do here.  NEVER throw an exception
+                            // from tracing
+                            Console.WriteLine(e);
+                        }
+                    });
                 };
             }
 
