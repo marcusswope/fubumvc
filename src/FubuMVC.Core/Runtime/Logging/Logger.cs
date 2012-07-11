@@ -53,7 +53,7 @@ namespace FubuMVC.Core.Runtime.Logging
             _infoString.Value(message);
         }
 
-        public void DebugMessage(object message)
+        public void DebugMessage(LogRecord message)
         {
             if (message == null)
             {
@@ -63,7 +63,7 @@ namespace FubuMVC.Core.Runtime.Logging
             _debugMessage[message.GetType()](() => message);
         }
 
-        public void InfoMessage(object message)
+        public void InfoMessage(LogRecord message)
         {
             if (message == null)
             {
@@ -73,12 +73,12 @@ namespace FubuMVC.Core.Runtime.Logging
             _infoMessage[message.GetType()](() => message);
         }
 
-        public void DebugMessage<T>(Func<T> message)
+        public void DebugMessage<T>(Func<T> message) where T : LogRecord
         {
             _debugMessage[typeof (T)](() => message());
         }
 
-        public void InfoMessage<T>(Func<T> message)
+        public void InfoMessage<T>(Func<T> message) where T : LogRecord
         {
             _infoMessage[typeof (T)](() => message());
         }

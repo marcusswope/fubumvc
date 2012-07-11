@@ -114,10 +114,14 @@
     <Compile Include="Runtime\Files\FubuFile.cs" />
     <Compile Include="Runtime\Files\IFubuApplicationFiles.cs" />
     <Compile Include="Runtime\Files\IFubuFile.cs" />
+    <Compile Include="Runtime\Logging\ExceptionReport.cs" />
+    <Compile Include="Runtime\Logging\LogRecord.cs" />
     <Compile Include="Runtime\Logging\Logger.cs" />
     <Compile Include="Runtime\Logging\ILogger.cs" />
     <Compile Include="Runtime\Logging\ILogListener.cs" />
     <Compile Include="Runtime\Logging\ListenerCollection.cs" />
+    <Compile Include="Runtime\Logging\RecordingLogger.cs" />
+    <Compile Include="Runtime\Logging\StringMessage.cs" />
     <Compile Include="UI\Navigation\CompileNavigationStep.cs" />
     <Compile Include="Registration\Conventions\HandlerConvention.cs" />
     <Compile Include="Http\AspNet\AspNetClientConnectivity.cs" />
