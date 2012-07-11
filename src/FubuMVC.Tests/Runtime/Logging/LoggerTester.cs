@@ -135,9 +135,9 @@ namespace FubuMVC.Tests.Runtime.Logging
             l3.InfoMessages.Any().ShouldBeFalse(); // does not listen to Trace1
         }
 
-        public class Trace1{}
-        public class Trace2{}
-        public class Trace3{}
+        public class Trace1 : LogRecord{}
+        public class Trace2 : LogRecord { }
+        public class Trace3 : LogRecord { }
     }
 
     public class RecordingLogListener : ILogListener
