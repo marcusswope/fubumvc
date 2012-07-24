@@ -6,11 +6,25 @@ namespace FubuMVC.IntegrationTesting.ViewEngines.Spark.PartialNoLayout.Features.
 {
     public class TransferToController
     {
-         public FubuContinuation Tranfer()
+         public FubuContinuation Tranfer(TransferToRequest request)
          {
              return FubuContinuation.TransferTo(new HelloPartialInputModel());
          }
+
+        public TransferToModel Render()
+        {
+            return new TransferToModel();
+        }
     }
+
+    public class TransferToModel
+    {
+    }
+
+    public class TransferToRequest  
+    {
+    }
+
     public class RedirectToController
     {
          public FubuContinuation Redirect()

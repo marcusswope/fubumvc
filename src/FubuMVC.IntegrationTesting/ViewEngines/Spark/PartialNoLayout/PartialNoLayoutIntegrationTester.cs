@@ -49,9 +49,16 @@ namespace FubuMVC.IntegrationTesting.ViewEngines.Spark.PartialNoLayout
         [Test]
         public void should_apply_layout_when_transfered_to()
         {
-            var text = endpoints.Get<TransferToController>(x => x.Tranfer()).ReadAsText();
+            var text = endpoints.Get<TransferToController>(x => x.Tranfer(null)).ReadAsText();
             text.ShouldContain("<p>In a partial</p>");
             text.ShouldContain("<h1>This layout means FAIL!</h1>");
+        }
+        [Test]
+        public void shouldnt_apply_layout_when_transfered_to_in__partial()
+        {
+            var text = endpoints.Get<TransferToController>(x => x.Render()).ReadAsText();
+            text.ShouldContain("<p>In a partial</p>");
+            text.ShouldNotContain("<h1>This layout means FAIL!</h1>");
         }
 
         [Test]

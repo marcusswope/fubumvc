@@ -276,6 +276,7 @@
     <None Include="ViewEngines\Spark\PartialNoLayout\Features\UsesNativePartials\UserNative.spark" />
     <None Include="ViewEngines\Spark\PartialNoLayout\Features\UsesNativePartials\_NativePartial.spark" />
     <None Include="ViewEngines\Spark\PartialNoLayout\Features\UsesPartial\UsesPartial.spark" />
+    <None Include="ViewEngines\Spark\PartialNoLayout\Features\UsesTransferTo\UsesTransfer.spark" />
     <None Include="ViewEngines\Spark\PartialNoLayout\Shared\Application.spark" />
     <None Include="ViewEngines\Spark\PartialNoLayout\Shared\PartialLayout.spark" />
   </ItemGroup>

@@ -1,0 +1,4 @@
+﻿<use namespace="FubuMVC.IntegrationTesting.ViewEngines.Spark.PartialNoLayout.Features.UsesTransferTo" />
+<viewdata model="FubuMVC.IntegrationTesting.ViewEngines.Spark.PartialNoLayout.Features.UsesTransferTo.TransferToModel" />
+<h1>Uses partial</h1>
+!{this.Partial(new TransferToRequest())}
