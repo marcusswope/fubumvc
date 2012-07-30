@@ -34,7 +34,7 @@ namespace FubuMVC.Tests.Packaging
 
             fileSystem.PersistToFile(manifest, packageFolder, PackageManifest.FILE);
 
-            linkedFolderReader = new LinkedFolderPackageLoader(theApplicationDirectory, f => f);
+            linkedFolderReader = new LinkedFolderBottleLoader(theApplicationDirectory, f => f);
 
             reader = new BottleManifestReader(fileSystem, folder => folder);
         }
@@ -50,7 +50,7 @@ namespace FubuMVC.Tests.Packaging
         private string packageFolder;
         private BottleManifestReader reader;
         private readonly string theApplicationDirectory = "../../".ToFullPath();
-        private LinkedFolderPackageLoader linkedFolderReader;
+        private LinkedFolderBottleLoader linkedFolderReader;
 
         [Test]
         public void load_a_package_info_from_a_manifest_file_when_given_the_folder()
@@ -74,7 +74,7 @@ namespace FubuMVC.Tests.Packaging
             var package = reader.LoadFromFolder(packageDirectory);
             var directoryContinuation = MockRepository.GenerateMock<Action<string>>();
 
-            package.ForFolder(BottleFiles.WebContentFolder, directoryContinuation);
+            package.ForFolder(WellKnownFiles.WebContentFolder, directoryContinuation);
 
             directoryContinuation.AssertWasCalled(x => x.Invoke(packageDirectory));
         }
@@ -94,7 +94,7 @@ namespace FubuMVC.Tests.Packaging
             var assemblyLoader = new AssemblyLoader(new BottlingDiagnostics(new LoggingSession()));
             assemblyLoader.AssemblyFileLoader = file => Assembly.Load(Path.GetFileNameWithoutExtension(file));
 
-            var package = linkedFolderReader.Load(new PackageLog()).Single();
+            var package = linkedFolderReader.Load(new BottleLog()).Single();
             assemblyLoader.LoadAssembliesFromPackage(package);
 
             assemblyLoader

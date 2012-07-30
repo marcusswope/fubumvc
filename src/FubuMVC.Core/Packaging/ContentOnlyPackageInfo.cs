@@ -5,7 +5,7 @@ using Bottles.PackageLoaders.Assemblies;
 
 namespace FubuMVC.Core.Packaging
 {
-    public class ContentOnlyPackageInfo : IPackageInfo
+    public class ContentOnlyPackageInfo : IBottleInfo
     {
         private readonly string _directory;
         private readonly string _name;
@@ -29,7 +29,7 @@ namespace FubuMVC.Core.Packaging
 
         public void ForFolder(string folderName, Action<string> onFound)
         {
-            if (folderName == BottleFiles.WebContentFolder)
+            if (folderName == WellKnownFiles.WebContentFolder)
             {
                 onFound(_directory);
             }
@@ -55,7 +55,7 @@ namespace FubuMVC.Core.Packaging
             get { throw new NotImplementedException(); }
         }
 
-        public Bottles.IPackageFiles Files
+        public Bottles.IBottleFiles Files
         {
             get { throw new NotImplementedException(); }
         }

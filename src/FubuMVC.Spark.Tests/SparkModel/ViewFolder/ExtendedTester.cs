@@ -34,11 +34,11 @@ namespace FubuMVC.Spark.Tests.SparkModel.ViewFolder
             var pathPackage1 = Path.Combine(pathApp, "fubu-packages", "Package1", "WebContent");
             var pathPackage2 = Path.Combine(testRoot, "Package2");
 
-            var packages = new List<IPackageInfo>();
-            var pack1 = new PackageInfo(new PackageManifest() { Name = Package1 });
-            var pack2 = new PackageInfo(new PackageManifest(){Name = Package2});
-            pack1.RegisterFolder(BottleFiles.WebContentFolder, pathPackage1);
-            pack2.RegisterFolder(BottleFiles.WebContentFolder, pathPackage2);
+            var packages = new List<IBottleInfo>();
+            var pack1 = new BottleInfo(new PackageManifest() { Name = Package1 });
+            var pack2 = new BottleInfo(new PackageManifest(){Name = Package2});
+            pack1.RegisterFolder(WellKnownFiles.WebContentFolder, pathPackage1);
+            pack2.RegisterFolder(WellKnownFiles.WebContentFolder, pathPackage2);
             packages.Add(pack1);
             packages.Add(pack2);
 

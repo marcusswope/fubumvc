@@ -42,11 +42,11 @@ namespace FubuMVC.Core.View.Model
             return new TemplateLogger(formatTrace, trace);
         }
 
-        private static IPackageLog getPackageLogger(ITemplateFile template)
+        private static IBottleLog getPackageLogger(ITemplateFile template)
         {
-            if (PackageRegistry.Diagnostics == null) return new PackageLog();
+            if (BottleRegistry.Diagnostics == null) return new BottleLog();
 
-            return PackageRegistry.Diagnostics.LogFor(template);
+            return BottleRegistry.Diagnostics.LogFor(template);
         }
 
         private static void formatTrace(ITemplateFile template, string format, object[] args)

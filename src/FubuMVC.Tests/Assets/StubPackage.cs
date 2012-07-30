@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Bottles;
 using Bottles.PackageLoaders.Assemblies;
@@ -7,7 +6,7 @@ using FubuCore.Util;
 
 namespace FubuMVC.Tests.Assets
 {
-    public class StubPackage : IPackageInfo
+    public class StubPackage : IBottleInfo
     {
         private readonly Cache<string, string> _folderNames = new Cache<string, string>();
         private readonly string _name;
@@ -56,7 +55,7 @@ namespace FubuMVC.Tests.Assets
             get { throw new NotImplementedException(); }
         }
 
-        public IPackageFiles Files
+        public IBottleFiles Files
         {
             get { throw new NotImplementedException(); }
         }

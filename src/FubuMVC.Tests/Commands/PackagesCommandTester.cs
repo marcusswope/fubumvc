@@ -7,7 +7,7 @@ using Rhino.Mocks;
 
 namespace FubuMVC.Tests.Commands
 {
-    public class FakePackageLog : PackageLog
+    public class FakePackageLog : BottleLog
     {
         public bool Equals(FakePackageLog other)
         {
@@ -16,7 +16,7 @@ namespace FubuMVC.Tests.Commands
 
         public override bool Equals(object obj)
         {
-            if (obj is IPackageLog) return true;
+            if (obj is IBottleLog) return true;
 
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;

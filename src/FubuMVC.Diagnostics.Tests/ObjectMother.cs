@@ -16,7 +16,7 @@ namespace FubuMVC.Diagnostics.Tests
 
         public static BehaviorGraph DiagnosticsGraph()
         {
-            PackageRegistry.LoadPackages(f => { });
+            BottleRegistry.LoadPackages(f => { });
 
             return BehaviorGraph.BuildFrom(DiagnosticsRegistry());
         }

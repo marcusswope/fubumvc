@@ -8,9 +8,9 @@ using FubuCore;
 
 namespace FubuMVC.Core.Packaging
 {
-    public class ZipFilePackageLoader : IPackageLoader
+    public class ZipFilePackageLoader : IBottleLoader
     {
-        public IEnumerable<IPackageInfo> Load(IPackageLog log)
+        public IEnumerable<IBottleInfo> Load(IBottleLog log)
         {
             var exploder = BottleExploder.GetPackageExploder(log);
             var reader = new BottleManifestReader(new FileSystem(), GetContentFolderForPackage);
@@ -27,7 +27,7 @@ namespace FubuMVC.Core.Packaging
 
         public static string GetContentFolderForPackage(string packageFolder)
         {
-            return FileSystem.Combine(packageFolder, BottleFiles.WebContentFolder);
+            return FileSystem.Combine(packageFolder, WellKnownFiles.WebContentFolder);
         }
     }
 }

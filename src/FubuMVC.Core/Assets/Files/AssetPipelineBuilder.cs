@@ -1,21 +1,14 @@
-using System;
 using Bottles.Diagnostics;
 using FubuCore;
 using System.Collections.Generic;
 
 namespace FubuMVC.Core.Assets.Files
 {
-    
-
     public class PackageAssetDirectory
     {
         public string PackageName { get; set; }
         public string Directory { get; set; }
     }
-
-
-
-
 
     public class AssetPipelineBuilder
     {
@@ -25,9 +18,9 @@ namespace FubuMVC.Core.Assets.Files
 
         private readonly IFileSystem _system;
         private readonly IAssetFileRegistration _registration;
-        private readonly IPackageLog _log;
+        private readonly IBottleLog _log;
 
-        public AssetPipelineBuilder(IFileSystem system, IAssetFileRegistration registration, IPackageLog log)
+        public AssetPipelineBuilder(IFileSystem system, IAssetFileRegistration registration, IBottleLog log)
         {
             _system = system;
             _registration = registration;

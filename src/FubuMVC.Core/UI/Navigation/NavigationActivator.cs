@@ -19,7 +19,7 @@ namespace FubuMVC.Core.UI.Navigation
             _graph = graph;
         }
 
-        public void Activate(IEnumerable<IPackageInfo> packages, IPackageLog log)
+        public void Activate(IEnumerable<IBottleInfo> packages, IBottleLog log)
         {
             log.Trace("Trying to resolve chains to the navigation graph");
             _graph.Navigation.AllNodes().OfType<MenuNode>().Each(x =>

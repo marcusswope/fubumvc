@@ -30,13 +30,13 @@ namespace FubuMVC.Tests
 
             var assembly = typeof (AssemblyPackageMarker).Assembly;
 
-            PackageRegistry.PackageAssemblies.ShouldContain(assembly);
+            BottleRegistry.PackageAssemblies.ShouldContain(assembly);
 
-            PackageRegistry.Packages.Each(x => Debug.WriteLine(x.Name));
+            BottleRegistry.Bottles.Each(x => Debug.WriteLine(x.Name));
 
 
-            PackageRegistry.Packages.OfType<AssemblyPackageInfo>().Any(
-                x => x.Name == AssemblyPackageInfoFactory.CreateFor(assembly).Name)
+            BottleRegistry.Bottles.OfType<AssemblyBottleInfo>().Any(
+                x => x.Name == AssemblyBottleInfoFactory.CreateFor(assembly).Name)
                 .ShouldBeTrue();
         }
     }

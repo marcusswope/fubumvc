@@ -12,7 +12,7 @@ namespace FubuMVC.Diagnostics.Features.Packaging
             var logs = new List<PackageDiagnosticsLogModel>();
             
             // Nothing really gained here by mocking this so let's hit it directly
-            PackageRegistry
+            BottleRegistry
                 .Diagnostics
                 .EachLog((target, log) => logs.Add(new PackageDiagnosticsLogModel
                                                        {

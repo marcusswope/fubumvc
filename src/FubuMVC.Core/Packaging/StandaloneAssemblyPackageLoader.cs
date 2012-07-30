@@ -7,7 +7,7 @@ using FubuCore;
 
 namespace FubuMVC.Core.Packaging
 {
-    public class StandaloneAssemblyPackageLoader : IPackageLoader
+    public class StandaloneAssemblyPackageLoader : IBottleLoader
     {
         private readonly IStandaloneAssemblyFinder _assemblyFinder;
 
@@ -16,10 +16,10 @@ namespace FubuMVC.Core.Packaging
             _assemblyFinder = assemblyFinder;
         }
 
-        public IEnumerable<IPackageInfo> Load(IPackageLog log)
+        public IEnumerable<IBottleInfo> Load(IBottleLog log)
         {
             var assemblies = _assemblyFinder.FindAssemblies(FubuMvcPackageFacility.GetApplicationPath());
-            return assemblies.Select(assembly => AssemblyPackageInfoFactory.CreateFor(assembly).As<IPackageInfo>());
+            return assemblies.Select(assembly => AssemblyBottleInfoFactory.CreateFor(assembly).As<IBottleInfo>());
         }
     }
 

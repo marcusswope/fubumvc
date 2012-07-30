@@ -29,9 +29,9 @@ namespace FubuMVC.Core.Runtime.Files
                 ForApplication()
             };
 
-            foreach (var package in PackageRegistry.Packages)
+            foreach (var package in BottleRegistry.Bottles)
             {
-                package.ForFolder(BottleFiles.WebContentFolder,
+                package.ForFolder(WellKnownFiles.WebContentFolder,
                                   folder =>
                                   {
                                       list.Add(new ContentFolder(package.Name, folder));

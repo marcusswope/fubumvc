@@ -69,11 +69,11 @@ namespace Fubu.Applications
         private static void determineBottleFolders(ApplicationStartResponse response)
         {
             var list = new List<string>();
-            PackageRegistry.Packages.Each(pak =>
+            BottleRegistry.Bottles.Each(pak =>
             {
-                pak.ForFolder(BottleFiles.WebContentFolder, list.Add);
-                pak.ForFolder(BottleFiles.BinaryFolder, list.Add);
-                pak.ForFolder(BottleFiles.DataFolder, list.Add);
+                pak.ForFolder(WellKnownFiles.WebContentFolder, list.Add);
+                pak.ForFolder(WellKnownFiles.BinaryFolder, list.Add);
+                pak.ForFolder(WellKnownFiles.DataFolder, list.Add);
             });
 
             response.BottleDirectories = list.ToArray();
